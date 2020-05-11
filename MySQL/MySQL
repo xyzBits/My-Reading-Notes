@@ -29,6 +29,133 @@ DBMS分为两类：
 	mysql的客户端，只能让root用户登录
 	命令执行不了的话，要执行环境变量
 	
+show databases; 查看所有的数据库
+use test; 打开指定的库
+show tables; 析当前库的所有表
+show tables from test; 查看其他库中的所有表
+select database();查看当前在哪个库
+desc stuinfo; 查看表的结构 
+select version();查看mysql服务端版本
+mysql -V
+mysql --version 
+create table 表名(
+列名 列类型，
+列名 列类型); 创建表
+
+语法规范：
+	1、不区分大小写，建议关键字大写，表名列名小写
+	2、每条命令最好用分号结尾，或者\g
+	3、每条命令根据需要，可以进行缩进或换行
+	4、注释 #  注释文件 -- 注释文字 要有空格 /*多行注释*/
+	
+基础查询 
+# 进阶1、基础查询 
+/*
+语法：
+select 查询列表 from 表名;
+
+类似于：System.out.println(打印的东西);
+
+特点：
+   1、查询列表可以是：表中的字段，常量值、表达式、函数
+   2、查询的结果是一个虚拟的表格，不是真实存在	
+*/
+
+# 1、查询表中的单个字段
+SELECT last_name FROM employees;
+
+# 2、查询表中的多个字段 ，逗号隔开
+SELECT last_name, salary, email FROM employees;
+
+# 3、查询表中的所有字段 ,可以用*，也可以自己写字段，自己写可以定义顺序
+SELECT * FROM employees;
+
+# 4、`NAME`着重，表明是字段，不是关键字
+
+
+#5、查询常量值，不区分字符，字符串，都用单引号
+SELECT 100;
+SELECT 'hello';
+
+#6、查询表达式，四则运算
+SELECT 100 % 98;
+
+# 7、查询函数
+SELECT VERSION();
+SELECT SIN(99);
+
+# 8、为字段起别名，方便理解，
+/*
+	方便理解 
+	如果要查询的字段有重名的情况，使用别名可以区分开来
+*/
+SELECT 100%98 AS result;
+SELECT last_name AS xing, first_name AS ming FROM employees;
+
+# 方式二，直接起别名，不用as
+SELECT last_name xing, first_name ming FROM employees;
+
+# 案例：查询salary，显示结果为out put，别名中有特殊符号，对别名加上引号
+SELECT salary "out put" FROM employees;
+
+# 9、去重 distinct 列名
+# 案例；查询员工表中涉及到的所有部门的编号 
+SELECT DISTINCT department_id FROM employees;
+
+# 10 、+号的作用
+/*
+	java中的加号，
+	1、运算符，两个操作数为数值型
+	2、连接符，拼接符，只要有一个操作数为字符串，就拼接
+	mysql中的加号，仅只有一个功能，是运算符
+*/
+# 案例：查询员工的名和姓连接成一个字段，并显示为姓名
+SELECT last_name + first_name AS "name" FROM employees;
+
+# 两个操作数都为数值型，则做加法
+SELECT 100 + 90 he;
+# 其中一方为字符型，则试图将字符型转换成数值型，
+# 转换成功，继续做加法
+SELECT '200' + 90 he;
+# 如果转换失败，将结果当作0相加
+SELECT 'haha' + 90 he; 
+# 只要其中一方为null，则结果肯定为null
+SELECT NULL + 90;
+
+# concat连接字符串，如果有一个值为null，结果都是null
+SELECT CONCAT(first_name, last_name) AS full_name FROM employees;
+
+SELECT CONCAT('a', 'b', 'c') con;
+
+# 显示表的结构 
+DESC departments;
+
+SELECT commission_pct, IFNULL(commission_pct, 0) AS res FROM employees;
+
+SELECT 
+CONCAT(first_name, ',', last_name, ',', IFNULL(commission_pct, 0)) 
+AS out_put
+FROM employees;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 	
 	
 	
